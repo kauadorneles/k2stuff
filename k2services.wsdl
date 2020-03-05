@@ -1,0 +1,518 @@
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s3="http://schemas.k2.com/event/d1" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://schemas.k2.com/worklist/d1" xmlns:s1="http://schemas.k2.com/process/d1" xmlns:s2="http://schemas.k2.com/activity/d1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://schemas.k2.com/worklist/d1">
+<wsdl:types>
+<s:schema elementFormDefault="qualified" targetNamespace="http://schemas.k2.com/worklist/d1">
+<s:import namespace="http://schemas.k2.com/process/d1"/>
+<s:import namespace="http://schemas.k2.com/activity/d1"/>
+<s:import namespace="http://schemas.k2.com/event/d1"/>
+<s:element name="OpenProcessInstance">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ProcInstID" type="s:long"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="OpenProcessInstanceResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ProcessInstance" nillable="true" type="tns:ProcessInstance"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:complexType name="ProcessInstance">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" ref="s1:Description"/>
+<s:element minOccurs="0" maxOccurs="1" ref="s1:Metadata"/>
+<s:element minOccurs="0" maxOccurs="unbounded" ref="s1:DataField"/>
+<s:element minOccurs="0" maxOccurs="unbounded" ref="s1:XmlField"/>
+<s:element minOccurs="0" maxOccurs="1" name="ViewFlow" type="s:string"/>
+</s:sequence>
+<s:attribute name="ExpectedDuration" type="s:long" use="required"/>
+<s:attribute name="Folder" type="s:string"/>
+<s:attribute name="Folio" type="s:string"/>
+<s:attribute name="FullName" type="s:string"/>
+<s:attribute name="Guid" type="s:string"/>
+<s:attribute name="ID" type="s:long" use="required"/>
+<s:attribute name="Name" type="s:string"/>
+<s:attribute name="Priority" type="s:int" use="required"/>
+<s:attribute name="StartDate" type="s:dateTime" use="required"/>
+<s:attribute name="Status" type="tns:ProcessStatus" use="required"/>
+</s:complexType>
+<s:simpleType name="ProcessStatus">
+<s:restriction base="s:string">
+<s:enumeration value="Error"/>
+<s:enumeration value="Running"/>
+<s:enumeration value="Active"/>
+<s:enumeration value="Completed"/>
+<s:enumeration value="Stopped"/>
+<s:enumeration value="Deleted"/>
+<s:enumeration value="New"/>
+</s:restriction>
+</s:simpleType>
+<s:element name="StartNewProcessInstance">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ProcessInstance" nillable="true" type="tns:ProcessInstance"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="StartNewProcessInstanceResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ProcessInstance" nillable="true" type="tns:ProcessInstance"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="StartNewProcessInstanceScalar">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ProcessFullName" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="StartNewProcessInstanceScalarResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="StartNewProcessInstanceScalarResult" type="s:long"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="UpdateProcessInstance">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ProcessInstance" nillable="true" type="tns:ProcessInstance"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="UpdateProcessInstanceResponse">
+<s:complexType/>
+</s:element>
+<s:element name="OpenWorklist">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="IncludeData" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="OpenWorklistResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="OpenWorklistResult" type="tns:ArrayOfWorklistItem"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:complexType name="ArrayOfWorklistItem">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="unbounded" name="WorklistItem" nillable="true" type="tns:WorklistItem"/>
+</s:sequence>
+</s:complexType>
+<s:complexType name="WorklistItem">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="unbounded" name="Action" type="tns:Action"/>
+<s:element minOccurs="0" maxOccurs="1" ref="s1:ProcessInstance"/>
+<s:element minOccurs="0" maxOccurs="1" ref="s2:ActivityInstanceDestination"/>
+<s:element minOccurs="0" maxOccurs="unbounded" name="DelegatedUser" type="s1:Destination"/>
+<s:element minOccurs="0" maxOccurs="1" ref="s3:ActivityInstanceDestination"/>
+<s:element minOccurs="0" maxOccurs="1" name="Instruction" type="s:string"/>
+</s:sequence>
+<s:attribute name="AllocatedUser" type="s:string"/>
+<s:attribute name="ID" type="s:long" use="required"/>
+<s:attribute name="SerialNumber" type="s:string"/>
+<s:attribute name="Status" type="tns:WorklistStatus" use="required"/>
+</s:complexType>
+<s:complexType name="Action">
+<s:attribute name="Name" type="s:string"/>
+<s:attribute name="Batchable" type="s:boolean" use="required"/>
+</s:complexType>
+<s:simpleType name="WorklistStatus">
+<s:restriction base="s:string">
+<s:enumeration value="Available"/>
+<s:enumeration value="Open"/>
+<s:enumeration value="Allocated"/>
+<s:enumeration value="Sleep"/>
+<s:enumeration value="Completed"/>
+</s:restriction>
+</s:simpleType>
+<s:element name="OpenWorklistItem">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Serial" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="OpenWorklistItemResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="WorklistItem" nillable="true" type="tns:WorklistItem"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ExecuteActionBySerial">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Serial" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="Action" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ExecuteActionBySerialResponse">
+<s:complexType/>
+</s:element>
+<s:element name="ExecuteActionByWorklistItem">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="WorklistItem" nillable="true" type="tns:WorklistItem"/>
+<s:element minOccurs="0" maxOccurs="1" name="Action" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="Sync" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ExecuteActionByWorklistItemResponse">
+<s:complexType/>
+</s:element>
+<s:element name="ReleaseWorklistItem">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Serial" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ReleaseWorklistItemResponse">
+<s:complexType/>
+</s:element>
+</s:schema>
+<s:schema elementFormDefault="qualified" targetNamespace="http://schemas.k2.com/process/d1">
+<s:import namespace="http://schemas.k2.com/worklist/d1"/>
+<s:element name="Description" type="s:string"/>
+<s:element name="Metadata" type="s:string"/>
+<s:element name="DataField" type="s1:DataField"/>
+<s:complexType name="DataField">
+<s:simpleContent>
+<s:extension base="s:string">
+<s:attribute name="Name" type="s:string"/>
+</s:extension>
+</s:simpleContent>
+</s:complexType>
+<s:element name="XmlField" type="s1:XmlField"/>
+<s:complexType name="XmlField">
+<s:simpleContent>
+<s:extension base="s:string">
+<s:attribute name="Name" type="s:string"/>
+</s:extension>
+</s:simpleContent>
+</s:complexType>
+<s:element name="ProcessInstance" type="tns:ProcessInstance"/>
+<s:complexType name="Destination">
+<s:attribute name="Name" type="s:string"/>
+</s:complexType>
+</s:schema>
+<s:schema elementFormDefault="qualified" targetNamespace="http://schemas.k2.com/activity/d1">
+<s:import namespace="http://schemas.k2.com/process/d1"/>
+<s:element name="ActivityInstanceDestination" type="s2:ActivityInstanceDestination"/>
+<s:complexType name="ActivityInstanceDestination">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="Metadata" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="unbounded" ref="s1:DataField"/>
+<s:element minOccurs="0" maxOccurs="unbounded" ref="s1:XmlField"/>
+</s:sequence>
+<s:attribute name="ActID" type="s:long" use="required"/>
+<s:attribute name="ActInstID" type="s:long" use="required"/>
+<s:attribute name="ExpectedDuration" type="s:long" use="required"/>
+<s:attribute name="ID" type="s:long" use="required"/>
+<s:attribute name="Name" type="s:string"/>
+<s:attribute name="Priority" type="s:int" use="required"/>
+<s:attribute name="ProcInstID" type="s:long" use="required"/>
+<s:attribute name="StartDate" type="s:dateTime" use="required"/>
+</s:complexType>
+</s:schema>
+<s:schema elementFormDefault="qualified" targetNamespace="http://schemas.k2.com/event/d1">
+<s:element name="ActivityInstanceDestination" type="s3:EventInstance"/>
+<s:complexType name="EventInstance">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="Metadata" type="s:string"/>
+</s:sequence>
+<s:attribute name="ExpectedDuration" type="s:long" use="required"/>
+<s:attribute name="ID" type="s:long" use="required"/>
+<s:attribute name="Name" type="s:string"/>
+<s:attribute name="Priority" type="s:int" use="required"/>
+<s:attribute name="StartDate" type="s:dateTime" use="required"/>
+</s:complexType>
+</s:schema>
+</wsdl:types>
+<wsdl:message name="OpenProcessInstanceSoapIn">
+<wsdl:part name="parameters" element="tns:OpenProcessInstance"/>
+</wsdl:message>
+<wsdl:message name="OpenProcessInstanceSoapOut">
+<wsdl:part name="parameters" element="tns:OpenProcessInstanceResponse"/>
+</wsdl:message>
+<wsdl:message name="StartNewProcessInstanceSoapIn">
+<wsdl:part name="parameters" element="tns:StartNewProcessInstance"/>
+</wsdl:message>
+<wsdl:message name="StartNewProcessInstanceSoapOut">
+<wsdl:part name="parameters" element="tns:StartNewProcessInstanceResponse"/>
+</wsdl:message>
+<wsdl:message name="StartNewProcessInstanceScalarSoapIn">
+<wsdl:part name="parameters" element="tns:StartNewProcessInstanceScalar"/>
+</wsdl:message>
+<wsdl:message name="StartNewProcessInstanceScalarSoapOut">
+<wsdl:part name="parameters" element="tns:StartNewProcessInstanceScalarResponse"/>
+</wsdl:message>
+<wsdl:message name="UpdateProcessInstanceSoapIn">
+<wsdl:part name="parameters" element="tns:UpdateProcessInstance"/>
+</wsdl:message>
+<wsdl:message name="UpdateProcessInstanceSoapOut">
+<wsdl:part name="parameters" element="tns:UpdateProcessInstanceResponse"/>
+</wsdl:message>
+<wsdl:message name="OpenWorklistSoapIn">
+<wsdl:part name="parameters" element="tns:OpenWorklist"/>
+</wsdl:message>
+<wsdl:message name="OpenWorklistSoapOut">
+<wsdl:part name="parameters" element="tns:OpenWorklistResponse"/>
+</wsdl:message>
+<wsdl:message name="OpenWorklistItemSoapIn">
+<wsdl:part name="parameters" element="tns:OpenWorklistItem"/>
+</wsdl:message>
+<wsdl:message name="OpenWorklistItemSoapOut">
+<wsdl:part name="parameters" element="tns:OpenWorklistItemResponse"/>
+</wsdl:message>
+<wsdl:message name="ExecuteActionBySerialSoapIn">
+<wsdl:part name="parameters" element="tns:ExecuteActionBySerial"/>
+</wsdl:message>
+<wsdl:message name="ExecuteActionBySerialSoapOut">
+<wsdl:part name="parameters" element="tns:ExecuteActionBySerialResponse"/>
+</wsdl:message>
+<wsdl:message name="ExecuteActionByWorklistItemSoapIn">
+<wsdl:part name="parameters" element="tns:ExecuteActionByWorklistItem"/>
+</wsdl:message>
+<wsdl:message name="ExecuteActionByWorklistItemSoapOut">
+<wsdl:part name="parameters" element="tns:ExecuteActionByWorklistItemResponse"/>
+</wsdl:message>
+<wsdl:message name="ReleaseWorklistItemSoapIn">
+<wsdl:part name="parameters" element="tns:ReleaseWorklistItem"/>
+</wsdl:message>
+<wsdl:message name="ReleaseWorklistItemSoapOut">
+<wsdl:part name="parameters" element="tns:ReleaseWorklistItemResponse"/>
+</wsdl:message>
+<wsdl:portType name="WSSoap">
+<wsdl:operation name="OpenProcessInstance">
+<wsdl:input message="tns:OpenProcessInstanceSoapIn"/>
+<wsdl:output message="tns:OpenProcessInstanceSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstance">
+<wsdl:input message="tns:StartNewProcessInstanceSoapIn"/>
+<wsdl:output message="tns:StartNewProcessInstanceSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstanceScalar">
+<wsdl:input message="tns:StartNewProcessInstanceScalarSoapIn"/>
+<wsdl:output message="tns:StartNewProcessInstanceScalarSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="UpdateProcessInstance">
+<wsdl:input message="tns:UpdateProcessInstanceSoapIn"/>
+<wsdl:output message="tns:UpdateProcessInstanceSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklist">
+<wsdl:input message="tns:OpenWorklistSoapIn"/>
+<wsdl:output message="tns:OpenWorklistSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklistItem">
+<wsdl:input message="tns:OpenWorklistItemSoapIn"/>
+<wsdl:output message="tns:OpenWorklistItemSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionBySerial">
+<wsdl:input message="tns:ExecuteActionBySerialSoapIn"/>
+<wsdl:output message="tns:ExecuteActionBySerialSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionByWorklistItem">
+<wsdl:input message="tns:ExecuteActionByWorklistItemSoapIn"/>
+<wsdl:output message="tns:ExecuteActionByWorklistItemSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ReleaseWorklistItem">
+<wsdl:input message="tns:ReleaseWorklistItemSoapIn"/>
+<wsdl:output message="tns:ReleaseWorklistItemSoapOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="WSSoap" type="tns:WSSoap">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="OpenProcessInstance">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/OpenProcessInstance" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstance">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/StartNewProcessInstance" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstanceScalar">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/StartNewProcessInstanceScalar" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="UpdateProcessInstance">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/UpdateProcessInstance" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklist">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/OpenWorklist" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklistItem">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/OpenWorklistItem" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionBySerial">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/ExecuteActionBySerial" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionByWorklistItem">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/ExecuteActionByWorklistItem" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ReleaseWorklistItem">
+<soap:operation soapAction="http://schemas.k2.com/worklist/d1/ReleaseWorklistItem" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="WSSoap12" type="tns:WSSoap">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="OpenProcessInstance">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/OpenProcessInstance" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstance">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/StartNewProcessInstance" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="StartNewProcessInstanceScalar">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/StartNewProcessInstanceScalar" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="UpdateProcessInstance">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/UpdateProcessInstance" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklist">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/OpenWorklist" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="OpenWorklistItem">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/OpenWorklistItem" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionBySerial">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/ExecuteActionBySerial" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ExecuteActionByWorklistItem">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/ExecuteActionByWorklistItem" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ReleaseWorklistItem">
+<soap12:operation soapAction="http://schemas.k2.com/worklist/d1/ReleaseWorklistItem" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="WS">
+<wsdl:port name="WSSoap" binding="tns:WSSoap">
+<soap:address location="https://k2.denallix.com/K2Services/WS.asmx"/>
+</wsdl:port>
+<wsdl:port name="WSSoap12" binding="tns:WSSoap12">
+<soap12:address location="https://k2.denallix.com/K2Services/WS.asmx"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
