@@ -1,0 +1,91 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://getparametros.wsbeans.iseries/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="GETPARAMETROS" targetNamespace="http://getparametros.wsbeans.iseries/">
+<types>
+<xs:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://getparametros.wsbeans.iseries/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://getparametros.wsbeans.iseries/" version="1.0">
+<xs:element name="get0005" type="tns:get0005"/>
+<xs:element name="get0005Response" type="tns:get0005Response"/>
+<xs:element name="get0005_XML" type="tns:get0005_XML"/>
+<xs:element name="get0005_XMLResponse" type="tns:get0005_XMLResponse"/>
+<xs:complexType name="get0005">
+<xs:sequence>
+<xs:element name="arg0" type="tns:get0005Input"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get0005Input">
+<xs:sequence>
+<xs:element name="PARAMETRO" type="xs:string"/>
+<xs:element name="USUARIO" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get0005Response">
+<xs:sequence>
+<xs:element name="return" type="tns:get0005Result"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get0005Result">
+<xs:sequence>
+<xs:element name="DESCRIP1" type="xs:string"/>
+<xs:element name="VALORES" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get0005_XML">
+<xs:sequence>
+<xs:element name="arg0" type="tns:get0005Input"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="get0005_XMLResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</types>
+<message name="get0005">
+<part element="tns:get0005" name="parameters"> </part>
+</message>
+<message name="get0005Response">
+<part element="tns:get0005Response" name="parameters"> </part>
+</message>
+<message name="get0005_XML">
+<part element="tns:get0005_XML" name="parameters"> </part>
+</message>
+<message name="get0005_XMLResponse">
+<part element="tns:get0005_XMLResponse" name="parameters"> </part>
+</message>
+<portType name="GETPARAMETROSServices">
+<operation name="get0005">
+<input message="tns:get0005" wsam:Action="http://getparametros.wsbeans.iseries/GETPARAMETROSServices/get0005Request"> </input>
+<output message="tns:get0005Response" wsam:Action="http://getparametros.wsbeans.iseries/GETPARAMETROSServices/get0005Response"> </output>
+</operation>
+<operation name="get0005_XML">
+<input message="tns:get0005_XML" wsam:Action="http://getparametros.wsbeans.iseries/GETPARAMETROSServices/get0005_XMLRequest"> </input>
+<output message="tns:get0005_XMLResponse" wsam:Action="http://getparametros.wsbeans.iseries/GETPARAMETROSServices/get0005_XMLResponse"> </output>
+</operation>
+</portType>
+<binding name="GETPARAMETROSServicesPortBinding" type="tns:GETPARAMETROSServices">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="get0005">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="get0005_XML">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="GETPARAMETROS">
+<port binding="tns:GETPARAMETROSServicesPortBinding" name="GETPARAMETROSServicesPort">
+<soap:address location="http://10.150.209.36:10032/web/services/GETPARAMETROSService/GETPARAMETROS"/>
+</port>
+</service>
+</definitions>
