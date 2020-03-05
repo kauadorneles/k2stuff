@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://getwrite.wsbeans.iseries/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="GETWRITE" targetNamespace="http://getwrite.wsbeans.iseries/">
+<types>
+<xs:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://getwrite.wsbeans.iseries/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://getwrite.wsbeans.iseries/" version="1.0">
+<xs:element name="getwrite" type="tns:getwrite"/>
+<xs:element name="getwriteResponse" type="tns:getwriteResponse"/>
+<xs:element name="getwrite_XML" type="tns:getwrite_XML"/>
+<xs:element name="getwrite_XMLResponse" type="tns:getwrite_XMLResponse"/>
+<xs:complexType name="getwrite">
+<xs:sequence>
+<xs:element name="arg0" type="tns:getwriteInput"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getwriteInput">
+<xs:sequence>
+<xs:element name="USUARIO" type="xs:string"/>
+<xs:element name="TIPO" type="xs:string"/>
+<xs:element name="NIVEL" type="xs:string"/>
+<xs:element name="CODIGO" type="xs:decimal"/>
+<xs:element name="NIE" type="xs:string"/>
+<xs:element name="NOMBRE" type="xs:string"/>
+<xs:element name="DIRECCION" type="xs:string"/>
+<xs:element name="TELEFONO" type="xs:string"/>
+<xs:element name="PADRE" type="xs:decimal"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getwriteResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:getwriteResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getwriteResult">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="getwrite_XML">
+<xs:sequence>
+<xs:element name="arg0" type="tns:getwriteInput"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getwrite_XMLResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</types>
+<message name="getwrite_XMLResponse">
+<part element="tns:getwrite_XMLResponse" name="parameters"> </part>
+</message>
+<message name="getwrite">
+<part element="tns:getwrite" name="parameters"> </part>
+</message>
+<message name="getwrite_XML">
+<part element="tns:getwrite_XML" name="parameters"> </part>
+</message>
+<message name="getwriteResponse">
+<part element="tns:getwriteResponse" name="parameters"> </part>
+</message>
+<portType name="GETWRITEServices">
+<operation name="getwrite">
+<input message="tns:getwrite" wsam:Action="http://getwrite.wsbeans.iseries/GETWRITEServices/getwriteRequest"> </input>
+<output message="tns:getwriteResponse" wsam:Action="http://getwrite.wsbeans.iseries/GETWRITEServices/getwriteResponse"> </output>
+</operation>
+<operation name="getwrite_XML">
+<input message="tns:getwrite_XML" wsam:Action="http://getwrite.wsbeans.iseries/GETWRITEServices/getwrite_XMLRequest"> </input>
+<output message="tns:getwrite_XMLResponse" wsam:Action="http://getwrite.wsbeans.iseries/GETWRITEServices/getwrite_XMLResponse"> </output>
+</operation>
+</portType>
+<binding name="GETWRITEServicesPortBinding" type="tns:GETWRITEServices">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="getwrite">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getwrite_XML">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="GETWRITE">
+<port binding="tns:GETWRITEServicesPortBinding" name="GETWRITEServicesPort">
+<soap:address location="http://10.150.209.36:10032/web/services/GETWRITEService/GETWRITE"/>
+</port>
+</service>
+</definitions>
