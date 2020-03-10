@@ -88,7 +88,7 @@
 </binding>
 <service name="GETWRITE">
 <port binding="tns:GETWRITEServicesPortBinding" name="GETWRITEServicesPort">
-<soap:address location="http://localhost:17000/web/services/GETWRITEService/GETWRITE"/>
+<soap:address location="http://10.150.209.36:17000/web/services/GETWRITEService/GETWRITE"/>
 </port>
 </service>
 </definitions>
