@@ -84,7 +84,7 @@
 </binding>
 <service name="GETPARAMETROS">
 <port binding="tns:GETPARAMETROSServicesPortBinding" name="GETPARAMETROSServicesPort">
-<soap:address location="http://localhost:10032/web/services/GETPARAMETROSService/GETPARAMETROS"/>
+<soap:address location="http://localhost:17000/web/services/GETPARAMETROSService/GETPARAMETROS"/>
 </port>
 </service>
 </definitions>
