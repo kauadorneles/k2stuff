@@ -1,4 +1,8 @@
-
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "K2 Workflow Api - V1"
 {
 	"_id" : ObjectId("5e74bf4fafe1cf402d1c6393"),
 	"name" : "TESTLBC01",
@@ -23,4 +27,5 @@
 	"params" : null,
 	"updated" : 1584709461603,
 	"updatedBy" : ObjectId("5e74b2ca348ca0400f5615e7")
+}
 }
