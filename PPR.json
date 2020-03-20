@@ -2,7 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "v1",
-    "title": "K2 Workflow Api - V1"
+    "title": "PPR"
+  },
 {
 	"_id" : ObjectId("5e74bf4fafe1cf402d1c6393"),
 	"name" : "TESTLBC01",
