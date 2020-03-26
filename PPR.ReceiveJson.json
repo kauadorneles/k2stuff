@@ -1,0 +1,91 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "preview",
+    "title": "Kaua Swagger"
+  },
+  "host": "k2.denallix.com",
+  "basePath": "/test",
+  "schemes": [],
+  "paths": {
+         },
+  "definitions": {
+  	"document": {
+		"type": "object",
+		"properties": {
+			"$id": {
+				"type": "string"
+			},
+			"level": {
+				"type": "string"
+			},
+			"type": {
+				"type": "string"
+			},
+			"name": {
+				"type": "string"
+			},
+			"status": {
+				"type": "string"
+			},
+			"updated": {
+				"type": "integer",
+				"format": "int64"
+			},
+			"updatedBy": {
+				"type": "string"
+			}
+		}
+	},
+	"Case": {
+		"type": "object",
+		"properties": {
+			"$_id": {
+				"type": "string"
+			},
+			"name": {
+				"type": "string"
+			},
+			"quote_ref": {
+				"type": "string"
+			},
+			"sections": {
+				"type": "string"
+			},
+			"client_name": {
+				"type": "string"
+			},
+			"companyId": {
+				"type": "string"
+			},
+			"created": {
+				"type": "integer",
+				"format": "int64"
+			},
+			"createdBy": {
+				"type": "string"
+			},
+			"action": {
+				"type": "string"
+			},
+			"documents": {
+			   "type": "array",
+			   "items": {
+					"$ref": "#/definitions/document"
+				}
+			},
+			"params": {
+				"type": "string"
+			},
+			"updated": {
+				"type": "integer",
+				"format": "int64"
+			},
+			"updatedBy": {
+				"type":	"string"
+			}
+		}
+	},
+}
+}
+  
