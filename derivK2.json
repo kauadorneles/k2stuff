@@ -1,74 +1,293 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Process Automation",
-    "description": "Contains APIs used within the Process Automation Cell, to support business processes.",
-    "version": "0.0.1"
+    "version": "Unknown",
+    "title": "Deriv Example",
+    "description": "",
+    "contact": {}
   },
-  "host": "x6pr-kqwm-lfqn.n7d.xano.io",
-  "basePath": "/api:ekyZ8a89",
-  "schemes": ["https"],
-  "securityDefinitions": {
-    "bearerAuth": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "JWT token with 'Bearer ' prefix"
-    }
-  },
+  "host": "rest.synatic.com",
+  "basePath": "//jaamautomationdev/deriv-example",
+  "securityDefinitions": {},
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
-    "/GetPOIData": {
+    "/": {
       "get": {
-        "summary": "The purpose of this API is to retrieve the POI data for a specific Login ID.",
-        "description": "The purpose of this API is to retrieve the POI data for a specific Login ID.\n<br /><br />\n<b>Authentication:</b> not required",
-        "tags": ["GetPOIData"],
-        "security": [],
-        "parameters": [
-          {
-            "name": "platform_code",
-            "in": "query",
-            "description": "Denotes that the platform to direct the request to. Values include: V1 or V2",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "login_id",
-            "in": "query",
-            "description": "The Login ID to identify who to get the POI data for.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "created_by",
-            "in": "query",
-            "description": "The internal user or system user for audit purposes.",
-            "required": true,
-            "type": "string"
-          }
+        "description": "Returns the service info",
+        "summary": "getServiceInfo",
+        "tags": [
+          "Service Info"
         ],
-        "produces": ["application/json"],
+        "operationId": "getServiceInfo",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Success!",
+            "description": "The REST service Information",
+            "schema": {
+              "$ref": "#/definitions/serviceInfo"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/wrappergetpoidata": {
+      "get": {
+        "description": "",
+        "summary": "Wrappergetpoidata_GET",
+        "operationId": "Wrappergetpoidata_GET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The result of the flow",
             "schema": {
               "type": "array",
+              "default": "",
               "items": {
-                "type": "object",
-                "properties": {
-                  "type": { "type": "string" },
-                  "status": { "type": "string" }
-                }
+                "$ref": "#/definitions/DerivExample"
               }
-            }
+            },
+            "headers": {}
           },
-          "400": { "description": "Input Error. Check the request payload for issues." },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Access denied. Additional privileges are needed access the requested resource." },
-          "404": { "description": "Not Found. The requested resource does not exist." },
-          "429": { "description": "Rate Limited. Too many requests." },
-          "500": { "description": "Unexpected error" }
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/getpoidataexample": {
+      "get": {
+        "description": "",
+        "summary": "getPOIDataExample",
+        "operationId": "getPOIDataExample",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The oData formatted filter e.g. $filter=field eq value"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The fields to select e.g. $select=field1,field2"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "required": false,
+            "default": 0,
+            "type": "integer",
+            "format": "int32",
+            "description": "The records to skip"
+          },
+          {
+            "name": "$limit",
+            "in": "query",
+            "required": false,
+            "default": 50,
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of records to return"
+          },
+          {
+            "name": "$sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The sort order of records e.g. $sort=field1,-field2"
+          },
+          {
+            "name": "$rawQuery",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "A mongodb json find statement as a string. e.g. {\"field1\":1}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The results fo the query",
+            "schema": {
+              "type": "array",
+              "default": "",
+              "items": {
+                "$ref": "#/definitions/DerivBufferExample"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
         }
       }
     }
-  }
+  },
+  "definitions": {
+    "DerivExample": {
+      "title": "DerivExample",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "DerivBufferExample": {
+      "title": "DerivBufferExample",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "_dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "formatError1": {
+      "title": "formatError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "invalid": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "serverError1": {
+      "title": "serverError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceInfo": {
+      "title": "serviceInfo",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the service",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the service",
+          "type": "string"
+        }
+      }
+    },
+    "unauthorizedError1": {
+      "title": "unauthorizedError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Service Info",
+      "description": "Base service info"
+    }
+  ]
 }
