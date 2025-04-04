@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "Unknown",
+    "title": "Deriv Example",
+    "description": "",
+    "contact": {}
+  },
+  "host": "rest.synatic.com",
+  "basePath": "//jaamautomationdev/deriv-example",
+  "securityDefinitions": {},
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Returns the service info",
+        "summary": "getServiceInfo",
+        "tags": [
+          "Service Info"
+        ],
+        "operationId": "getServiceInfo",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The REST service Information",
+            "schema": {
+              "$ref": "#/definitions/serviceInfo"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/wrappergetpoidata": {
+      "get": {
+        "description": "",
+        "summary": "Wrappergetpoidata_GET",
+        "operationId": "Wrappergetpoidata_GET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The result of the flow",
+            "schema": {
+              "type": "array",
+              "default": "",
+              "items": {
+                "$ref": "#/definitions/DerivExample"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "DerivExample": {
+      "title": "DerivExample",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "formatError1": {
+      "title": "formatError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "invalid": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "serverError1": {
+      "title": "serverError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceInfo": {
+      "title": "serviceInfo",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the service",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the service",
+          "type": "string"
+        }
+      }
+    },
+    "unauthorizedError1": {
+      "title": "unauthorizedError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Service Info",
+      "description": "Base service info"
+    }
+  ]
+}
