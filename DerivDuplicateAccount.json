@@ -34,7 +34,58 @@
           "200": {
             "description": "Duplicate account check result",
             "schema": {
-              "$ref": "#/definitions/data"
+              "type": "object",
+              "properties": {
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "endpoint": {
+                      "type": "string",
+                      "example": "/api:QQZDcMfq/v1-bridge/duplicate-account?user_id=CR0000001"
+                    },
+                    "verb": {
+                      "type": "string",
+                      "example": "GET"
+                    }
+                  }
+                },
+                "is_duplicate_acc": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "duplicate_acc_confidence": {
+                  "type": "integer",
+                  "example": 80
+                },
+                "acc_to_disable_confidence": {
+                  "type": "integer",
+                  "example": 85
+                },
+                "acc_to_disable": {
+                  "type": "string",
+                  "example": "CR12345"
+                },
+                "regulated_acc": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "duplicate_acc_type": {
+                  "type": "string",
+                  "example": "CFD"
+                },
+                "duplicate_acc_funds": {
+                  "type": "number",
+                  "example": 4
+                },
+                "open_positions": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "suspected_fraud_lvl": {
+                  "type": "integer",
+                  "example": 55
+                }
+              }
             }
           },
           "default": {
