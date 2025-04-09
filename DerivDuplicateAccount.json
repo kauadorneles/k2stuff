@@ -1,0 +1,116 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST APIs for Automation",
+    "description": "K2-compatible Swagger file for POI Data, Add Remarks, Account Balance, and Duplicate Account endpoints."
+  },
+  "host": "x6pr-kqwm-lfqn.n7d.xano.io",
+  "basePath": "/api:QQZDcMfq",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1-bridge/duplicate-account": {
+      "get": {
+        "summary": "Check Duplicate Account",
+        "description": "Checks if a given user ID is a duplicate account and provides related metadata.",
+        "operationId": "checkDuplicateAccount",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Duplicate account check result",
+            "schema": {
+              "$ref": "#/definitions/data"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "DuplicateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "example": "/api:QQZDcMfq/v1-bridge/duplicate-account?user_id=CR0000001"
+            },
+            "verb": {
+              "type": "string",
+              "example": "GET"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "is_duplicate_acc": {
+              "type": "boolean",
+              "example": false
+            },
+            "duplicate_acc_confidence": {
+              "type": "integer",
+              "example": 80
+            },
+            "acc_to_disable_confidence": {
+              "type": "integer",
+              "example": 85
+            },
+            "acc_to_disable": {
+              "type": "string",
+              "example": "CR12345"
+            },
+            "regulated_acc": {
+              "type": "boolean",
+              "example": true
+            },
+            "duplicate_acc_type": {
+              "type": "string",
+              "example": "CFD"
+            },
+            "duplicate_acc_funds": {
+              "type": "number",
+              "example": 4
+            },
+            "open_positions": {
+              "type": "boolean",
+              "example": false
+            },
+            "suspected_fraud_lvl": {
+              "type": "integer",
+              "example": 55
+            }
+          }
+        }
+      }
+    }
+  }
+}
