@@ -1,0 +1,484 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "Unknown",
+    "title": "NCC Procurement",
+    "description": "",
+    "contact": {}
+  },
+  "host": "rest.synatic.com",
+  "basePath": "//norfolkdev/ncc-procurement",
+  "securityDefinitions": {},
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/createdatastructure": {
+      "post": {
+        "description": "",
+        "summary": "createDataStructure",
+        "tags": [
+          "helper"
+        ],
+        "operationId": "createDataStructure",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "The record to create",
+            "schema": {
+              "$ref": "#/definitions/smodata"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The record created",
+            "schema": {
+              "$ref": "#/definitions/smodata"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/datastructure/{smartobjectinfo}": {
+      "get": {
+        "description": "",
+        "summary": "getSmoDataStructure",
+        "tags": [
+          "helper"
+        ],
+        "operationId": "getSmoDataStructure",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "smartobjectinfo",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result of the flow",
+            "schema": {
+              "$ref": "#/definitions/templateJson"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "Returns the service info",
+        "summary": "getServiceInfo",
+        "tags": [
+          "Service Info"
+        ],
+        "operationId": "getServiceInfo",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The REST service Information",
+            "schema": {
+              "$ref": "#/definitions/serviceInfo"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/generatetemplate/{smartobjectinfo}": {
+      "get": {
+        "description": "",
+        "summary": "generateTemplateGET",
+        "operationId": "generateTemplateGET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "smartobjectinfo",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result of the flow",
+            "schema": {
+              "$ref": "#/definitions/templateJson"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/generatetemplate": {
+      "post": {
+        "description": "",
+        "summary": "generateTemplate",
+        "operationId": "generateTemplate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "The input",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result of the flow",
+            "schema": {
+              "$ref": "#/definitions/templateJson"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/savesmodata": {
+      "post": {
+        "description": "",
+        "summary": "savesmodata",
+        "operationId": "savesmodata",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "The record to create",
+            "schema": {
+              "$ref": "#/definitions/smodata"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The record created",
+            "schema": {
+              "$ref": "#/definitions/smodata"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Request error",
+            "schema": {
+              "$ref": "#/definitions/formatError1"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Not Authorized",
+            "schema": {
+              "$ref": "#/definitions/unauthorizedError1"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/serverError1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "templateJson": {
+      "title": "templateJson",
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "smodata": {
+      "title": "smodata",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "json": {
+          "type": "string"
+        },
+        "projectID": {
+          "type": "string"
+        },
+        "templateID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ParentJoinProperty": {
+          "type": "string"
+        },
+        "ChildJoinProperty": {
+          "type": "string"
+        },
+        "FieldName": {
+          "type": "string"
+        },
+        "parentRecordID": {
+          "type": "string"
+        },
+        "_dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DocFusionTemplateID": {
+          "type": "string"
+        }
+      }
+    },
+    "formatError1": {
+      "title": "formatError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "invalid": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "serverError1": {
+      "title": "serverError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceInfo": {
+      "title": "serviceInfo",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the service",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the service",
+          "type": "string"
+        }
+      }
+    },
+    "unauthorizedError1": {
+      "title": "unauthorizedError1",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Templates"
+    },
+    {
+      "name": "helper"
+    },
+    {
+      "name": "Service Info",
+      "description": "Base service info"
+    }
+  ]
+}
